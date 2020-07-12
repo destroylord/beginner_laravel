@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Show my premium</h1>
+    About
 </body>
 </html>

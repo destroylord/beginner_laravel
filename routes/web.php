@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $name = "Fahmi Dafrin Maulana";
-
-    return view('welcome', ['name' => $name]);
+    return view('Home');
 });
 
 // Route::view('/', 'welcome');
@@ -15,4 +13,4 @@ Route::get('/', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::view('series/create', 'series.premium.show');
+Route::view('/about', 'about');
