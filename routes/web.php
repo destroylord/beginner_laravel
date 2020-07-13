@@ -1,13 +1,9 @@
 <?php
 
-// use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-
-    return view('Home');
-});
+Route::get('/', 'HomeController');
 
 // Route::view('/', 'welcome');
 
@@ -19,3 +15,4 @@ Route::get('/contact', function () {
 });
 Route::view('/about', 'about');
 Route::view('/login', 'login');
+
