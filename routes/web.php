@@ -18,4 +18,4 @@ Route::view('/login', 'login');
 
 
 // Post
-Route::get('posts/{slug}', 'PostController@show');
+Route::get('posts/{post:slug}', 'PostController@show');

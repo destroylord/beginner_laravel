@@ -8,14 +8,14 @@ use App\Post;
 class PostController extends Controller
 {
     //
-    public function show($slug)
+    public function show(Post $post)
     {
 
-        $post = Post::where('slug', $slug)->first();
+        // $post = Post::where('slug', $slug)->first();
 
-        if (!$post) {
-            abort(404);
-        }
+        // if (!$post) {
+        //     abort(404);
+        // }
 
         return view('posts.show', compact('post'));
     }
