@@ -18,4 +18,5 @@ Route::view('/login', 'login');
 
 
 // Post
+Route::get('posts', 'PostController@index');
 Route::get('posts/{post:slug}', 'PostController@show');
