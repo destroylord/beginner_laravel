@@ -48,14 +48,14 @@ class PostController extends Controller
         // ]);
 
         // validate the field
-        request()->validate([
+        $attr = request()->validate([
             'title' => 'required|min:3',
             'body' => 'required'
         ]);
 
-        $post['slug'] = \Str::slug(request()->title);
+        $attr['slug'] = \Str::slug(request('title'));
         
-        Post::create($post);
+        Post::create($attr);
         return back();
     }
 }
