@@ -28,7 +28,7 @@ class PostController extends Controller
     {
         return view('posts.create');
     }
-    public function store(Request $request)
+    public function store()
     {
         // cara pertama
         // $post = new Post;
@@ -47,8 +47,14 @@ class PostController extends Controller
         //     'body' => $request->body,
         // ]);
 
-        $post = $request->all();
-        $post['slug'] = \Str::slug($request->title);
+        // validate the field
+        request()->validate([
+            'title' => 'required|min:3',
+            'body' => 'required'
+        ]);
+
+        $post['slug'] = \Str::slug(request()->title);
+        
         Post::create($post);
         return back();
     }
