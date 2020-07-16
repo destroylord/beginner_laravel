@@ -24,6 +24,7 @@ Route::post('posts/store','PostController@store');
 
 Route::get('posts/{post:slug}/edit','PostController@edit');
 Route::patch('posts/{post:slug}/update','PostController@update');
+Route::delete('posts/{post:slug}/delete','PostController@destroy');
 
 // put -> semua yang kita update di field
 // patch -> sebagian field yang kita update
