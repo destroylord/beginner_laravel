@@ -26,7 +26,7 @@ class PostController extends Controller
     }
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create', ['post' => new Post()]);
     }
     public function store()
     {
@@ -48,10 +48,7 @@ class PostController extends Controller
         // ]);
 
         // validate the field
-        $attr = request()->validate([
-            'title' => 'required|min:3',
-            'body' => 'required'
-        ]);
+        $attr = $this->validateRequest();
 
         // Assign title to the slug
         $attr['slug'] = \Str::slug(request('title'));
@@ -71,16 +68,21 @@ class PostController extends Controller
     }
     public function update(Post $post)
     {
+
+        $attr = $this->validateRequest();
         // validate the field
-        $attr = request()->validate([
-            'title' => 'required|min:3',
-            'body' => 'required'
-        ]);
 
         $post->update($attr);
 
         session()->flash('success','The pos was updated');
         
         return redirect('posts');
+    }
+    public function validateRequest()
+    {
+        return request()->validate([
+            'title' => 'required|min:3',
+            'body' => 'required'
+        ]);
     }
 }
