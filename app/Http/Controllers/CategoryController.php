@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
 
         // menampilkan semua post berdasarkan kategori
-        $posts = $category->posts()->paginate();
+        $posts = $category->posts()->latest()->paginate();
 
         return view('posts.index', compact('posts','category'));
     }

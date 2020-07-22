@@ -8,7 +8,7 @@
             <a href="/categories/{{ $post->category->name }}">
                 {{ $post->category->name }}</a> &middot; {{ $post->created_at->format('d F, Y') }} &middot;
                 @forelse($post->tags as $tag)
-                    <a href="#">{{$tag->name}}</a>
+                    <a href="/tags/{{ $tag->slug }}/">{{$tag->name}}</a>
                 @empty
                     empty
                 @endforelse

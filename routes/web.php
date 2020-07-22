@@ -33,3 +33,5 @@ Route::get('posts/{post:slug}', 'PostController@show');
 
 // Category
 Route::get('categories/{category:slug}','CategoryController@show');
+// Tag
+Route::get('tags/{tag:slug}','TagController@show');
