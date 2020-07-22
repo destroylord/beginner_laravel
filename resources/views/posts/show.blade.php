@@ -6,7 +6,12 @@
         <h1>{{ $post->title }}</h1>
             <div class="text-secondary">
             <a href="/categories/{{ $post->category->name }}">
-                {{ $post->category->name }}</a> &middot; {{ $post->created_at->format('d F, Y') }}
+                {{ $post->category->name }}</a> &middot; {{ $post->created_at->format('d F, Y') }} &middot;
+                @forelse($post->tags as $tag)
+                    <a href="#">{{$tag->name}}</a>
+                @empty
+                    empty
+                @endforelse
             </div>
             <hr>
 
