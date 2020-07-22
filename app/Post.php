@@ -21,4 +21,10 @@ class Post extends Model
     {
         return $this->latest()->get();
     }
+
+    // Setiap post memiliki 1 kategori menggunakan belongsTo
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
