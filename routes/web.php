@@ -30,3 +30,6 @@ Route::delete('posts/{post:slug}/delete','PostController@destroy');
 // patch -> sebagian field yang kita update
 
 Route::get('posts/{post:slug}', 'PostController@show');
+
+// Category
+Route::get('categories/{category:slug}','CategoryController@show');
