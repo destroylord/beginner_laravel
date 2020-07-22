@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title','slug','body']; //-> jika orang lain yang input data
+    protected $fillable = ['title','category_id','slug','body']; //-> jika orang lain yang input data
 
     // protected $guarded = []; -> jika menginputkan sendiri atau di dashboard
 
