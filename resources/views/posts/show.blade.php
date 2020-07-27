@@ -16,17 +16,21 @@
             <hr>
 
         <p>{{ $post->body }}</p>
+            <div class="text-secondary">
+               Author :  {{ $post->author->name }}
+            </div>
         <div>
 
-        @auth
+            {{--   @if(auth()->user()->is($post->author)) --}}
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
             Delete
             </button>
+            
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        @endauth
+      
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -54,6 +58,8 @@
                     </div>
                 </div>
             </div>
+
+            {{-- @endif --}}
         </div>
     </div>
 @endsection

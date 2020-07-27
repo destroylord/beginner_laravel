@@ -59,8 +59,9 @@ class PostController extends Controller
         $attr['slug'] = \Str::slug(request('title'));
         // menambkan kategori
         $attr['category_id'] = request('category');
+        
         // create new post
-        $post = Post::create($attr);
+        $post = auth()->user()->posts()->create($attr); //craete post sesuai yang login
 
         // menyimpan field tags
         $post->tags()->attach(request('tags'));
@@ -97,11 +98,19 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->tags()->detach();
-        $post->delete();
-        session()->flash('success','the post was deleted');
-        
-        return redirect('posts/all-posts');
+        if (auth()->user()->is($post->author)) {
+            $post->tags()->detach();
+            $post->delete();
+            session()->flash('success',"The post was destroyed");
+            
+            return redirect('posts/all-posts');
+
+        }else{
+ 
+            session()->flash('danger',"It wasn't your Pos");
+            
+            return redirect('posts/all-posts');
+        }
     }
 
     public function validateRequest()
