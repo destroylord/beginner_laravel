@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
+    protected $fillable = ['name' , 'slug'];
+
     // setiap kategori memiliki banyak post
     public function posts()
     {
