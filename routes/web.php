@@ -17,15 +17,19 @@ Route::view('/login', 'login');
 
 
 // Post
-Route::get('all-posts', 'PostController@index')->name('posts.index');
 
-Route::get('posts/create','PostController@create')->name('posts.create');
-Route::post('posts/store','PostController@store');
+Route::prefix('posts')->middleware('auth')->group( function () {
+    
+    Route::get('all-posts', 'PostController@index')->name('posts.index')->withoutMiddleware('auth');
 
-Route::get('posts/{post:slug}/edit','PostController@edit');
-Route::patch('posts/{post:slug}/update','PostController@update');
-Route::delete('posts/{post:slug}/delete','PostController@destroy');
+    Route::get('create','PostController@create')->name('posts.create');
+    Route::post('store','PostController@store');
 
+    Route::get('{post:slug}/edit','PostController@edit');
+    Route::patch('{post:slug}/update','PostController@update');
+    Route::delete('{post:slug}/delete','PostController@destroy');
+
+});
 // put -> semua yang kita update di field
 // patch -> sebagian field yang kita update
 

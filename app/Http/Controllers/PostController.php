@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     public function index()
     {
         $posts =  Post::latest()->paginate(6);
@@ -74,7 +68,7 @@ class PostController extends Controller
         session()->flash('success','The post was created');
         // session()->flash('error','The post was created');
         
-        return redirect('posts');
+        return redirect('posts/all-posts');
         //return back(); // redirect kehalaman form add posts
     }
     public function edit(Post $post)
@@ -98,7 +92,7 @@ class PostController extends Controller
 
         session()->flash('success','The pos was updated');
         
-        return redirect('posts');
+        return redirect('posts/all-posts');
     }
 
     public function destroy(Post $post)
@@ -107,7 +101,7 @@ class PostController extends Controller
         $post->delete();
         session()->flash('success','the post was deleted');
         
-        return redirect('posts');
+        return redirect('posts/all-posts');
     }
 
     public function validateRequest()

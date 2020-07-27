@@ -10,15 +10,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @guest
-                        <li class="nav-item">
-                            
-                        </li>
-                        @else
                         <li class="nav-item">
                             <a href="{{ route('posts.index') }}" class="nav-link">Post</a>
                         </li>
-                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
