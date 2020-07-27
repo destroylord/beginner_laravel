@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use function Ramsey\Uuid\v1;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * Create a new controller instance.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function __invoke()
+    public function __construct()
     {
-        //method pembantu
+        $this->middleware('auth');
+    }
 
-        $name = request('name');
-        return view('home', compact('name'));
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
     }
 }

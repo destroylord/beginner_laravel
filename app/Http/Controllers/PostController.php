@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $posts =  Post::latest()->paginate(6);
@@ -87,6 +93,7 @@ class PostController extends Controller
         
         $attr['category_id'] = request('category');
         $post->update($attr);
+        // update tags kedalam database
         $post->tags()->sync(request('tags'));
 
         session()->flash('success','The pos was updated');

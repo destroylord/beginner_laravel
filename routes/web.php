@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
-Route::get('/', 'HomeController');
+use Illuminate\Support\Facades\Auth;
 
 // Route::view('/', 'welcome');
 
@@ -18,8 +17,9 @@ Route::view('/login', 'login');
 
 
 // Post
-Route::get('posts', 'PostController@index');
-Route::get('posts/create','PostController@create');
+Route::get('all-posts', 'PostController@index')->name('posts.index');
+
+Route::get('posts/create','PostController@create')->name('posts.create');
 Route::post('posts/store','PostController@store');
 
 Route::get('posts/{post:slug}/edit','PostController@edit');
@@ -35,3 +35,7 @@ Route::get('posts/{post:slug}', 'PostController@show');
 Route::get('categories/{category:slug}','CategoryController@show');
 // Tag
 Route::get('tags/{tag:slug}','TagController@show');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
