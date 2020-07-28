@@ -83,6 +83,9 @@ class PostController extends Controller
     public function update(Post $post)
     {
 
+        // menggunakan policy
+        $this->authorize('update', $post);
+
         $attr = $this->validateRequest();
         // validate the field
         
@@ -98,19 +101,15 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if (auth()->user()->is($post->author)) {
-            $post->tags()->detach();
-            $post->delete();
-            session()->flash('success',"The post was destroyed");
-            
-            return redirect('posts/all-posts');
 
-        }else{
- 
-            session()->flash('danger',"It wasn't your Pos");
-            
-            return redirect('posts/all-posts');
-        }
+        // menggunakan policy
+        $this->authorize('delete', $post);
+        $post->tags()->detach();
+        $post->delete();
+        session()->flash('success',"The post was destroyed");
+        
+        return redirect('posts/all-posts');
+        
     }
 
     public function validateRequest()
