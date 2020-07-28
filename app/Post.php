@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title','category_id','slug','body']; //-> jika orang lain yang input data
+    protected $fillable = ['title','category_id','slug','body', 'thumbnail']; //-> jika orang lain yang input data
 
     // protected $guarded = []; -> jika menginputkan sendiri atau di dashboard
 
@@ -35,5 +35,10 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(User::class,'user_id');   
+    }
+
+    public function getTakeImageAttribute()
+    {
+        return "/storage/". $this->thumbnail;
     }
 }

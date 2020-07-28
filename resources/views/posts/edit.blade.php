@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header"> Update Post: {{$post->title}} </div>
                 <div class="card-body">
-                    <form action="/posts/{{ $post->slug }}/update" method="post" autocomplete="off">
+                    <form action="/posts/{{ $post->slug }}/update" method="post" autocomplete="off" enctype="multipart/form-data">
                     @method('patch')
 
                     @csrf

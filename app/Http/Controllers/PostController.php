@@ -34,7 +34,7 @@ class PostController extends Controller
                 ]);
     }
     public function store()
-    {
+    {        
         // cara pertama
         // $post = new Post;
         // $post->title = $request->title;
@@ -54,11 +54,22 @@ class PostController extends Controller
 
         // validate the field
         $attr = $this->validateRequest();
-
+        $slug = \Str::slug(request('title'));
         // Assign title to the slug
-        $attr['slug'] = \Str::slug(request('title'));
+        $attr['slug'] = $slug;
+
+        $thumbnail = request()->file('thumbnail');
+        $thumbnailUrl =  $thumbnail ? $thumbnail->store('images/posts') : null;
+
+        // if ($thumbnail) {
+        //     $thumbnailUrl;
+        // }else{
+        //     $thumbnailUrl = null;
+        // }
+
         // menambkan kategori
         $attr['category_id'] = request('category');
+        $attr['thumbnail'] = $thumbnailUrl;
         
         // create new post
         $post = auth()->user()->posts()->create($attr); //craete post sesuai yang login
@@ -85,11 +96,21 @@ class PostController extends Controller
 
         // menggunakan policy
         $this->authorize('update', $post);
-
-        $attr = $this->validateRequest();
         // validate the field
+        $attr = $this->validateRequest();
+
+
+        // jika thumbnailnnya di ganti maka akan didelete foto yang lama
+        if ( request()->file('thumbnail')) {
+            \Storage::delete($post->thumbnail);
+            $thumbnail = request()->file('thumbnail')->store('images/posts' );
+        }else{
+            $thumbnail = $post->thumbnail;
+        }
+
         
         $attr['category_id'] = request('category');
+        $attr['thumbnail'] = $thumbnail;
         $post->update($attr);
         // update tags kedalam database
         $post->tags()->sync(request('tags'));
@@ -104,6 +125,8 @@ class PostController extends Controller
 
         // menggunakan policy
         $this->authorize('delete', $post);
+
+        \Storage::delete($post->thumbnail);
         $post->tags()->detach();
         $post->delete();
         session()->flash('success',"The post was destroyed");
@@ -116,6 +139,7 @@ class PostController extends Controller
     {
         return request()->validate([
             'title'     => 'required|min:3',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
             'body'      => 'required',
             'category'  => 'required',
             'tags'      => 'array|required'
