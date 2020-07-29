@@ -84,6 +84,7 @@
         </div>
     </div>
 
+    {{-- cek di app/privders/AppServiceProvider --}}
     {{ $posts->links() }}
 </div>
 

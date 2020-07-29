@@ -16,14 +16,14 @@ class PostController extends Controller
     //
     public function show(Post $post)
     {
-
+        
         // $post = Post::where('slug', $slug)->first();
 
         // if (!$post) {
         //     abort(404);
         // }
-
-        return view('posts.show', compact('post'));
+        $posts = Post::where('category_id', $post->category_id)->latest()->limit(6)->get();
+        return view('posts.show', compact('post','posts'));
     }
     public function create()
     {

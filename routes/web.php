@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Route::view('/', 'welcome');
 
+Route::get('search','SearchController@post')->name('search.posts');
 Route::get('/contact', function () {
     // return view('contact');
     // return request()->path() == 'contact' ? 'sama' : 'tidak';
