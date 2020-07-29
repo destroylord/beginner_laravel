@@ -33,12 +33,12 @@ Route::prefix('posts')->middleware('auth')->group( function () {
 // put -> semua yang kita update di field
 // patch -> sebagian field yang kita update
 
-Route::get('posts/{post:slug}', 'PostController@show');
+Route::get('posts/{post:slug}', 'PostController@show')->name('posts.show');
 
 // Category
-Route::get('categories/{category:slug}','CategoryController@show');
+Route::get('categories/{category:slug}','CategoryController@show')->name('categories.show');
 // Tag
-Route::get('tags/{tag:slug}','TagController@show');
+Route::get('tags/{tag:slug}','TagController@show')->name('tags.show');
 
 Auth::routes();
 

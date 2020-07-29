@@ -4,30 +4,42 @@
 @section('content')
     <div class="container">
         <h1>{{ $post->title }}</h1>
-            <div class="text-secondary">
+            
+            <div class="text-secondary mb-3">
             <a href="/categories/{{ $post->category->name }}">
                 {{ $post->category->name }}</a> &middot; {{ $post->created_at->format('d F, Y') }} &middot;
+
                 @forelse($post->tags as $tag)
                     <a href="/tags/{{ $tag->slug }}/">{{$tag->name}}</a>
                 @empty
                     empty
                 @endforelse
+                <div class="media my-3">
+                    <img width="60" class="roundede-circle mr-3" src="{{ $post->author->gravatar() }}" alt="">
+                    <div class="media-body">
+                        <div>
+                            {{ $post->author->name}}
+                        </div>
+                      {{ '@'.$post->author->name}}
+                    </div>
+                </div>
             </div>
-            <hr>
 
-        <p>{{ $post->body }}</p>
-            <div class="text-secondary">
-               Author :  {{ $post->author->name }}
-            </div>
+        <p>{{!! nl2br($post->body) !!}}</p>
+
         <div>
 
         @can('delete', $post)
          {{--  @if(auth()->user()->is($post->author))  --}}
+
+         <div class="flex mt-3">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
-            Delete
+            <button type="button" class="btn btn-danger btn-sm " data-toggle="modal" data-target="#exampleModal">
+                Delete
             </button>
-            
+
+            <a href="/posts/{{$post->slug}}/edit" class="btn btn-sm btn-success">Edit</a>
+         </div>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
